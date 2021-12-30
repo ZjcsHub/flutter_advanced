@@ -3,6 +3,8 @@ import 'package:flutter_advanced/Pages/Home.dart';
 import 'package:flutter_advanced/Pages/Category.dart';
 import 'package:flutter_advanced/Pages/My.dart';
 import 'package:flutter_advanced/Pages/ShopCart.dart';
+import '../Servers/ScreenAdaper.dart';
+
 class Tabs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -25,6 +27,7 @@ class _TabState extends State {
 
 @override
   Widget build(BuildContext context) {
+    ScreenAdaper.init(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_currentIndex]["title"] as String),
