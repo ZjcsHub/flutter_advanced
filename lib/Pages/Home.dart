@@ -19,11 +19,14 @@ class _HomePageState extends State {
   @override
   void initState() {
     super.initState();
+    NetWorkProductModel.LoadData().then((info){
 
+      setState(() {
+        netWorkProductModel = info as NetWorkProductModel?;
+      });
+
+    });
   }
-
-
-
 
   // 轮播图
   Widget _swiperWidget() {
@@ -167,13 +170,7 @@ class _HomePageState extends State {
 
   Widget _netWorkHotProduct() {
 
-    NetWorkProductModel.LoadData().then((info){
 
-      setState(() {
-        netWorkProductModel = info as NetWorkProductModel?;
-      });
-
-    });
     List<Widget> _getNetWorkProduct() {
       List<Widget> productWidgets = [];
 
