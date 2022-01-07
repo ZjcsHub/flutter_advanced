@@ -87,25 +87,23 @@ class _CategoryState extends State {
       onTap: (){
         print(itemsModel.title);
       },
-      child: Expanded(
-        flex: 2,
+      child: Container(
         child: Column(
           children: [
-            Container(
+
+            AspectRatio(
+              aspectRatio: 1/0.4,
               child: Image.network(itemsModel.imageUrl,fit: BoxFit.cover,),
-              width: double.infinity,
-              height: 50,
             ),
-            Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Text(
-                  itemsModel.title,
-                  maxLines: 2,
-                )
-            ),
-
-
+            Container(
+              child: Text(
+                itemsModel.title,
+                maxLines: 2,
+              ),
+              // height: 28,
+            )
           ],
+
         ),
       ),
     );
@@ -113,18 +111,21 @@ class _CategoryState extends State {
 
   _RightContext() {
 
-    List<Widget> _getCategateItem() {
+    var itemLists = cateModelLists[_seleteIndex].itemLists;
+    
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+        childAspectRatio: 1/0.6,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10
+      ),
+      itemBuilder: (context,index){
 
-      List<Widget> lists = [];
-      cateModelLists[_seleteIndex].itemLists.forEach((element) {
-        lists.add(_smallCategoryItem(element));
-      });
-      return lists;
-
-    }
-
-    return ListView(
-      children: _getCategateItem(),
+        return _smallCategoryItem(itemLists[index]);
+      },
+    itemCount: itemLists.length,
+      padding: EdgeInsets.all(10),
     );
 
   }
@@ -143,7 +144,7 @@ class _CategoryState extends State {
           child:Container(
             child: _RightContext(),
             height: double.infinity,
-            color: Colors.blue,
+
 
           ),
           flex: 1,
