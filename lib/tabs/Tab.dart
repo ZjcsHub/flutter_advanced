@@ -21,9 +21,16 @@ class _TabState extends State {
     {"title":"分类","value":Category()},
     {"title":"购物车","value":ShopCart()},
     {"title":"我的","value":MyPage()},
-
   ];
 
+  PageController? _pageController;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: _currentIndex);
+
+  }
 
 @override
   Widget build(BuildContext context) {
@@ -31,8 +38,25 @@ class _TabState extends State {
     return Scaffold(
       appBar: AppBar(
         title: Text(_pages[_currentIndex]["title"] as String),
+        leading: IconButton(
+          icon: Icon(Icons.center_focus_weak),
+        ),
+
       ),
-      body: _pages[_currentIndex]["value"] as Widget,
+      // body: _pages[_currentIndex]["value"] as Widget,
+
+      // body: IndexedStack( // 这个组件可以保持页面不会每次刷新加载，可以保持，但是有个缺点就是一次性加载多个页面
+      //   index: _currentIndex,
+      //   children:  _pages.map((e) => e["value"] as Widget).toList()
+      //
+      // ),
+
+      body: PageView(
+        controller: this._pageController,
+        children:  _pages.map((e) => e["value"] as Widget).toList(),
+
+      ),
+
       bottomNavigationBar:BottomNavigationBar(
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home),label:"首页" ),
@@ -46,8 +70,13 @@ class _TabState extends State {
         fixedColor: Colors.red,
         currentIndex: _currentIndex,
         onTap: (index) {
+          // setState(() {
+          //   this._currentIndex = index;
+          // });
+
           setState(() {
             this._currentIndex = index;
+            this._pageController?.jumpToPage(index);
           });
         },
 

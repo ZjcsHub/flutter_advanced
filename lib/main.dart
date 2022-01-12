@@ -22,6 +22,17 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       initialRoute: "/",
       onGenerateRoute: onGenerateRoute,
+        theme: ThemeData(
+          // Define the default brightness and colors.
+
+          colorScheme: Theme.of(context).colorScheme.copyWith(
+            primary: Colors.white, // appbar背景颜色
+            onPrimary: Colors.black, // appbar文字颜色
+            brightness: Brightness.light,
+          ),
+        )
+
+
       //home: Tabs(),
     );
 

@@ -23,9 +23,12 @@ class CategoryItemsModel {
   String title = "";
   String imageUrl = "";
 
+  String productUrl = "";
+
   CategoryItemsModel.fromJson(Map<String, dynamic> json) {
     this.title = json["title"];
     this.imageUrl = json["imageUrl"];
+    this.productUrl = json["productUrl"];
   }
 
 }

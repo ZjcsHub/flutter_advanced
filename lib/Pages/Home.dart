@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
   }
 }
 
-class _HomePageState extends State {
+class _HomePageState extends State with AutomaticKeepAliveClientMixin {
 
   NetWorkProductModel? netWorkProductModel;
 
@@ -257,4 +257,9 @@ class _HomePageState extends State {
     );
 
   }
+
+  // 状态保持，让页面不会重复加载
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

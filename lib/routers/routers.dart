@@ -1,9 +1,13 @@
 // 路由配置文件
 import 'package:flutter/material.dart';
+import '../Pages/TarbarChange.dart';
 import '../tabs/Tab.dart';
-
+import '../Pages/ProductsLists.dart';
 final routers = {
   "/":(context,{arguments}) => Tabs(),
+  "products":(context,{arguments}) => ProductsLists(arguments),
+  "tabbar":(context,{arguments}) => TarbarChange()
+
 };
 
 var onGenerateRoute = (RouteSettings settings) {
