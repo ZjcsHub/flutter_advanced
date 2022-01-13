@@ -11,7 +11,12 @@ class _MyState extends State {
   @override
   Widget build(BuildContext context) {
 
-    return Text("我是我的页面");
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("我的"),
+      ),
+      body: Text("我的"),
+    );
 
   }
 }

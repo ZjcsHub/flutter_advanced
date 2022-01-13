@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import '../Pages/TarbarChange.dart';
 import '../tabs/Tab.dart';
 import '../Pages/ProductsLists.dart';
+import '../Pages/SearchView.dart';
 final routers = {
   "/":(context,{arguments}) => Tabs(),
   "products":(context,{arguments}) => ProductsLists(arguments),
-  "tabbar":(context,{arguments}) => TarbarChange()
-
+  "tabbar":(context,{arguments}) => TarbarChange(),
+  "search":(context,{arguments}) => SearchView()
 };
 
 var onGenerateRoute = (RouteSettings settings) {

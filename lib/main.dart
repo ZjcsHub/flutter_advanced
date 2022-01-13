@@ -20,6 +20,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: "/",
       onGenerateRoute: onGenerateRoute,
         theme: ThemeData(

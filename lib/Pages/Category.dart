@@ -135,25 +135,31 @@ class _CategoryState extends State {
   @override
   Widget build(BuildContext context) {
 
-    return Row(
-      children: [
-        Container(
-          child: _LeftItem(),
-          height: double.infinity,
-          width: 140,
-        ),
-        Expanded(
-          child:Container(
-            child: _RightContext(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("分类"),
+      ),
+      body: Row(
+        children: [
+          Container(
+            child: _LeftItem(),
             height: double.infinity,
-
-
+            width: 140,
           ),
-          flex: 1,
-        )
+          Expanded(
+            child:Container(
+              child: _RightContext(),
+              height: double.infinity,
 
-      ],
+
+            ),
+            flex: 1,
+          )
+
+        ],
+      ),
     );
+
 
   }
 }
