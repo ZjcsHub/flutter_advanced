@@ -38,6 +38,7 @@ dependencies:
   flutter_screenutil: ^5.0.2
   dio: ^4.0.4 # 数据请求库
   webview_flutter: ^3.0.0
+  shared_preferences: ^2.0.12
 
 dev_dependencies:
   flutter_test:

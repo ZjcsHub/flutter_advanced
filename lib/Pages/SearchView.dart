@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced/Servers/SearchServer.dart';
 
 class SearchView extends StatefulWidget {
   @override
@@ -10,6 +11,24 @@ class SearchView extends StatefulWidget {
 
 class _SearchViewState extends State {
   TextEditingController _textEditingController = TextEditingController();
+
+  List<String> hotSearchData = [];
+  @override
+  void initState() {
+
+    _getSearchData();
+  }
+
+  _getSearchData() {
+
+    SearchServer.getSearchData().then((value){
+      setState(() {
+        this.hotSearchData = value;
+      });
+    });
+
+  }
+
 
   Widget _titleWidget(String title) {
     return Container(
@@ -32,7 +51,10 @@ class _SearchViewState extends State {
         );
   }
 
-  Widget _searchHistory(List<Widget> widgetLists) {
+  Widget _searchHistory() {
+
+    var widgetLists = this.hotSearchData.map((e) => _smallWeight(e)).toList();
+
     return Wrap(children: widgetLists);
   }
 
@@ -49,40 +71,31 @@ class _SearchViewState extends State {
     );
   }
 
+  Widget _productHistory() {
+    var widgetLists = this.hotSearchData.map((e){
+      return Column(
+        children: [
+          ListTile(
+            title: Text(e),
+          ),
+          Divider(),
+        ],
+      );
+    }).toList();
+    return Column(
+      children: widgetLists
+    );
+
+  }
   Widget _searchBody() {
     return Container(
       padding: EdgeInsets.all(10),
       child: ListView(
         children: [
           _titleWidget("热搜"),
-          _searchHistory([
-            _smallWeight("女装"),
-            _smallWeight("男装"),
-            _smallWeight("玩具"),
-            _smallWeight("手机数码"),
-            _smallWeight("健康保健饮品"),
-          ]),
+          _searchHistory(),
           _titleWidget("历史"),
-          Column(
-            children: [
-              ListTile(
-                title: Text("女装"),
-              ),
-              Divider(),
-              ListTile(
-                title: Text("女装"),
-              ),
-              Divider(),
-              ListTile(
-                title: Text("女装"),
-              ),
-              Divider(),
-              ListTile(
-                title: Text("女装"),
-              ),
-              Divider(),
-            ],
-          ),
+          _productHistory(),
           Container(
               margin: EdgeInsets.only(left: 30, right: 30),
               height: 50,
@@ -91,6 +104,8 @@ class _SearchViewState extends State {
               child: InkWell(
                 onTap: () {
                   print("清空历史记录");
+                  SearchServer.cleatSearchData();
+                  _getSearchData();
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -142,8 +157,14 @@ class _SearchViewState extends State {
                     fontSize: 17,
                     fontWeight: FontWeight.bold),
               ),
-              onTap: () {
+              onTap: () async {
                 print("搜索:${this._textEditingController.text}");
+
+                await SearchServer.setSearchData(this._textEditingController.text);
+
+                _getSearchData();
+
+
               },
             ),
             alignment: Alignment.center,

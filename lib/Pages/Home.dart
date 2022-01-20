@@ -118,52 +118,58 @@ class _HomePageState extends State with AutomaticKeepAliveClientMixin {
   }
 
   Widget _ProductChildren(ProductModel productModel) {
-    return Container(
-      width: (ScreenAdaper.getScreenWidth() - 30) / 2,
-      decoration: BoxDecoration(
-          border: Border.all(
-              color: Colors.black12,
-              width: 1
-          )
-      ),
-      padding: EdgeInsets.all(5),
-      child: Column(
-        children: [
-          Container(
-            child: Image.network(productModel.imgUrl,fit: BoxFit.cover,),
-            width: double.infinity,
-            height: 200,
-          ),
-          Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: Text(
-                productModel.title,
-                maxLines: 2,
-              )
-          ),
-          Padding(padding: EdgeInsets.only(top: 10,left: 5,right: 5),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(productModel.price,
-                    style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 17
-                    ),),
-                ),
-                Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(productModel.oldprice,
-                    style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        color: Colors.black54
-                    ),),
+    return InkWell(
+      onTap: (){
+        print("productModel:${productModel.skuId}");
+        Navigator.pushNamed(context, "productDetail",arguments: productModel);
+      },
+      child: Container(
+        width: (ScreenAdaper.getScreenWidth() - 30) / 2,
+        decoration: BoxDecoration(
+            border: Border.all(
+                color: Colors.black12,
+                width: 1
+            )
+        ),
+        padding: EdgeInsets.all(5),
+        child: Column(
+          children: [
+            Container(
+              child: Image.network(productModel.imgUrl,fit: BoxFit.cover,),
+              width: double.infinity,
+              height: 200,
+            ),
+            Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Text(
+                  productModel.title,
+                  maxLines: 2,
                 )
-              ],
-            ),)
+            ),
+            Padding(padding: EdgeInsets.only(top: 10,left: 5,right: 5),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(productModel.price,
+                      style: TextStyle(
+                          color: Colors.red,
+                          fontSize: 17
+                      ),),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: Text(productModel.oldprice,
+                      style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          color: Colors.black54
+                      ),),
+                  )
+                ],
+              ),)
 
-        ],
+          ],
+        ),
       ),
     );
   }

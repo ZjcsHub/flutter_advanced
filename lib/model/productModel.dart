@@ -5,7 +5,7 @@ class ProductModel extends Object {
   String price = "";
   String oldprice = "";
   String title = "";
-
+  String skuId = "";
   // ProductModel(this.imgUrl,this.price,this.oldprice,this.title);
 
   ProductModel.fromJson(Map json) {
@@ -20,6 +20,7 @@ class ProductModel extends Object {
     this.price = productItem.price;
     this.oldprice = productItem.oldprice;
     this.title = productItem.title;
+    this.skuId = productItem.skuid;
   }
 }
 
@@ -70,11 +71,13 @@ class ProductItem {
   String price = "";
   String oldprice = "";
   String title = "";
+  String skuid = "";
 
   ProductItem.fromJson(Map json) {
     this.imgUrl = json["image"];
     this.price = json["pPrice"];
     this.oldprice = json["pcpPrice"];
     this.title = json["name"];
+    this.skuid = json["skuId"];
   }
 }

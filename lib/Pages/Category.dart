@@ -86,8 +86,8 @@ class _CategoryState extends State {
     return GestureDetector(
       onTap: (){
         print(itemsModel.title);
-        // Navigator.pushNamed(context, "products",arguments: itemsModel);
-        Navigator.pushNamed(context, "tabbar");
+        Navigator.pushNamed(context, "products",arguments: itemsModel);
+        // Navigator.pushNamed(context, "tabbar");
       },
       child: Container(
         child: Column(
