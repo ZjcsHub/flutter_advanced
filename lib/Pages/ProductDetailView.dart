@@ -81,7 +81,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
             children: [
               TabBarView(
                 children: [
-                  ProductContentsFirst(),
+                  ProductContentsFirst(widget.productModel),
                   ProductContentsSecond(),
                   ProductContentsThird(),
                 ],
