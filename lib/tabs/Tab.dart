@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_advanced/Pages/Home.dart';
 import 'package:flutter_advanced/Pages/Category.dart';
 import 'package:flutter_advanced/Pages/My.dart';
-import 'package:flutter_advanced/Pages/ShopCart.dart';
-import '../Servers/ScreenAdaper.dart';
+import 'package:flutter_advanced/Pages/ShopCar/ShopCart.dart';
+import 'package:flutter_advanced/Servers/ScreenAdaper.dart';
 
 class Tabs extends StatefulWidget {
   @override

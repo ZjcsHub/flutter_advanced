@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ScreenAdaper {
 
+  // static BuildContext? _context;
 
   static init(context) {
     ScreenUtil.init(
@@ -15,6 +16,8 @@ class ScreenAdaper {
       orientation: Orientation.portrait
     );
 
+    ScreenUtil.setContext(context);
+    // _context = context;
   }
 
   static height(num height) {
@@ -27,10 +30,12 @@ class ScreenAdaper {
   // 屏幕高度
   static double getScreenHeight()  {
     return ScreenUtil().screenHeight;
+    // return MediaQuery.of(_context!).size.height;
   }
 
   // 屏幕宽度
   static double getScreenWidth()  {
     return ScreenUtil().screenWidth;
+    // return MediaQuery.of(_context!).size.width;
   }
 }

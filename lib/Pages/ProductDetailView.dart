@@ -7,7 +7,7 @@ import 'package:flutter_advanced/Servers/ScreenAdaper.dart';
 import 'package:flutter_advanced/Widget/MyButton.dart';
 import 'package:flutter_advanced/model/productModel.dart';
 import '../model/productModel.dart';
-
+import '../EventBus/ShopCartEvent.dart';
 
 class ProductDetailView extends StatefulWidget {
 
@@ -22,6 +22,10 @@ class ProductDetailView extends StatefulWidget {
 }
 
 class _ProductDetailViewState extends State<ProductDetailView> {
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -82,7 +86,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
               TabBarView(
                 children: [
                   ProductContentsFirst(widget.productModel),
-                  ProductContentsSecond(),
+                  ProductContentsSecond(widget.productModel),
                   ProductContentsThird(),
                 ],
               ),
@@ -129,6 +133,8 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                 text: "加入购物车",
                                 onClick: (){
                                   print("加入购物车");
+                                  // 广播
+                                  // eventBus.fire(ShopCartEvent("加入购物车"));
                                 },
                               )
                           ),

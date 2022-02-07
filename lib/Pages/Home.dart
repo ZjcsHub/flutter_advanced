@@ -21,8 +21,10 @@ class _HomePageState extends State with AutomaticKeepAliveClientMixin {
     super.initState();
     NetWorkProductModel.LoadData().then((info){
 
+      print("info----------- ${info}");
+      netWorkProductModel = info as NetWorkProductModel?;
+
       setState(() {
-        netWorkProductModel = info as NetWorkProductModel?;
       });
 
     });
