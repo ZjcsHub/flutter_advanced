@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_advanced/Pages/ShopCar/CartNumber.dart';
+import 'package:flutter_advanced/Provider/ShopCarCounter.dart';
 import 'package:flutter_advanced/Widget/MyButton.dart';
 import 'package:flutter_advanced/model/productModel.dart';
 import 'package:flutter/material.dart';
 import '../../model/ProductDetailModel.dart';
 import '../../EventBus/ShopCartEvent.dart';
+import 'package:provider/provider.dart';
+import '../../Provider/ShopCarCounter.dart';
 class ProductContentsFirst extends StatefulWidget {
   late ProductModel _productModel;
   ProductDetailModel? _productDetailModel;
@@ -25,6 +29,9 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
     ProductDetailModel.LoadData(widget._productModel.skuId).then((value) {
       setState(() {
         widget._productDetailModel = value;
+        widget._productDetailModel?.name = widget._productModel.title;
+        widget._productDetailModel?.imagePath = widget._productModel.imgUrl;
+        widget._productDetailModel?.price = widget._productModel.price;
       });
     });
     // 监听广播
@@ -39,8 +46,8 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
   void _attrShowBottomSheet() {
     var size = MediaQuery.of(context).size;
     showModalBottomSheet(context: context, builder: (contex){
-
-      return StatefulBuilder(builder: (BuildContext context,setState){
+      var _cartProvider = Provider.of<ShopCarCounter>(contex);
+      return StatefulBuilder(builder: (BuildContext buildcontext,setState){
         return GestureDetector(
           onTap: (){
 
@@ -132,6 +139,25 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
                           ),
                         )
                       ],
+                    ),
+                    Row(
+                      crossAxisAlignment:CrossAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 50,
+                          margin: EdgeInsets.all(10),
+                          child: Text("数量:",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20
+                            ),
+                          ),
+                        ),
+                        CartNumber(widget._productDetailModel?.count ?? 1,(number){
+                          widget._productDetailModel?.count = number;
+                          print("点击数量：$number");
+                        })
+                      ],
                     )
 
                   ],
@@ -152,6 +178,11 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
                               text: "加入购物车",
                               onClick: (){
                                 print("加入购物车");
+
+                                _cartProvider.addData(widget._productDetailModel);
+
+                                // 消失
+                                Navigator.pop(contex);
                               },
                             )
                         ),

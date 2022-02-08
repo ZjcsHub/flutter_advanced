@@ -134,7 +134,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
                                 onClick: (){
                                   print("加入购物车");
                                   // 广播
-                                  // eventBus.fire(ShopCartEvent("加入购物车"));
+                                  eventBus.fire(ShopCartEvent("加入购物车"));
                                 },
                               )
                           ),

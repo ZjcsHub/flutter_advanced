@@ -3,7 +3,14 @@ import 'package:flutter_advanced/Servers/ScreenAdaper.dart';
 import 'package:provider/provider.dart';
 import '../../Provider/ShopCarCounter.dart';
 import 'CartNumber.dart';
+import '../../model/ProductDetailModel.dart';
+import '../../EventBus/ShopCartEvent.dart';
 class CartItem extends StatefulWidget {
+
+  late ProductDetailModel _productModel;
+
+  CartItem(this._productModel);
+
   @override
   State<StatefulWidget> createState() {
     return _CartItemState();
@@ -25,9 +32,15 @@ class _CartItemState extends State<CartItem> {
           Container(
             width: 30,
             child: Checkbox(
-              value: true,
+              value: widget._productModel.checked,
               onChanged: (value) {
                 print("change ${value}");
+                setState(() {
+                  widget._productModel.checked = !widget._productModel.checked;
+                  eventBus.fire(ShopCartItemEvent("更改购物车全选"));
+                });
+
+
               },
               activeColor: Colors.pink,
             ),
@@ -36,7 +49,7 @@ class _CartItemState extends State<CartItem> {
             padding: EdgeInsets.all(10),
             width: 100,
             child: Image.network(
-              "https://img14.360buyimg.com/n1/jfs/t1/87309/25/15723/86324/5e748320Ec3ed62c6/2762e3d2f6a700e5.jpg",
+              widget._productModel.imagePath,
               fit: BoxFit.cover,
             ),
           ),
@@ -47,18 +60,21 @@ class _CartItemState extends State<CartItem> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                      "新年礼物】爱沃驰（I＆W）瑞士手表男士全自动机械男表 经典系列时尚轻奢超薄镂空商务双日历防水腕表 玫瑰金蓝面 / 竹节纹黑皮带【苏有朋明星同款】",
+                      widget._productModel.name,
                       maxLines: 2),
                   Stack(
                     alignment: AlignmentDirectional.center,
                     children: [
                       Align(
                         alignment: Alignment.centerLeft,
-                        child: Text("￥999"),
+                        child: Text("￥${widget._productModel.price}"),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: CartNumber(1),
+                        child: CartNumber(widget._productModel.count,(number){
+                          print("点击数量：$number");
+                          widget._productModel.count = number;
+                        }),
                       )
                     ],
                   )

@@ -5,7 +5,9 @@ class CartNumber extends StatefulWidget {
 
   int startNumber = 0;
 
-  CartNumber(this.startNumber);
+  Function(int number) clickNumber;
+
+  CartNumber(this.startNumber,this.clickNumber);
 
   @override
   State<StatefulWidget> createState() {
@@ -81,6 +83,8 @@ class _CartNumberState extends State<CartNumber> {
         widget.startNumber--;
 
       }
+      widget.clickNumber(widget.startNumber);
+
     });
 
 

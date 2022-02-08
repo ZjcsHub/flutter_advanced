@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced/model/ProductDetailModel.dart';
 
 class ShopCarCounter with ChangeNotifier {
   // 状态
@@ -20,5 +21,11 @@ class ShopCarCounter with ChangeNotifier {
   }
 
 
+  setAllCheck(bool isChecked) {
+    _carLists.forEach((element) {
+      (element as ProductDetailModel).checked = isChecked;
+    });
+    notifyListeners();
+  }
 
 }

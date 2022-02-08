@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
+import 'package:fast_gbk/fast_gbk.dart';
 class ProductDetailModel {
 
   late String name;
@@ -9,9 +9,15 @@ class ProductDetailModel {
   late String spec;
   late String imagePath;
 
+  late int count;
+
+  late String price;
+
+  bool checked = true;
 
   ProductDetailModel.formJson(Map map,String Skuid) {
 
+    print("商品详情Map:$map");
     if (map[Skuid] != null) {
 
       Map skuMap = map[Skuid];
@@ -24,6 +30,7 @@ class ProductDetailModel {
 
     }
 
+    this.count = 1;
   }
 
   // 加载数据
@@ -32,6 +39,8 @@ class ProductDetailModel {
     var url = "https://yx.3.cn/service/info.action";
     var dio = Dio();
     var response =  dio.get(url,queryParameters: {"ids":skuid}).then((value) {
+
+      print("商品详情结果:$value");
 
       var jsonMap = json.decode(value.data);
       return ProductDetailModel.formJson(jsonMap,skuid);

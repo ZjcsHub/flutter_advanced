@@ -8,6 +8,9 @@ class ShopCartEvent {
 
   ShopCartEvent(this.str);
 
+}
 
-
+class ShopCartItemEvent {
+  String str;
+  ShopCartItemEvent(this.str);
 }
