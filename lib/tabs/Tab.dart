@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/Pages/Home.dart';
 import 'package:flutter_advanced/Pages/Category.dart';
-import 'package:flutter_advanced/Pages/My.dart';
+import 'package:flutter_advanced/Pages/My/My.dart';
 import 'package:flutter_advanced/Pages/ShopCar/ShopCart.dart';
 import 'package:flutter_advanced/Servers/ScreenAdaper.dart';
-
+import '../EventBus/ShopCartEvent.dart';
 class Tabs extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -29,6 +29,19 @@ class _TabState extends State {
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
+
+    // 监听通知
+    eventBus.on<ShopCartdisplayEvent>().listen((event) {
+
+
+      setState(() {
+        _pageController?.jumpToPage(2);
+        this._currentIndex = 2;
+      });
+
+
+    });
+
   }
 
   @override

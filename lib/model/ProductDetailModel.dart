@@ -17,7 +17,6 @@ class ProductDetailModel {
 
   ProductDetailModel.formJson(Map map,String Skuid) {
 
-    print("商品详情Map:$map");
     if (map[Skuid] != null) {
 
       Map skuMap = map[Skuid];
@@ -39,8 +38,6 @@ class ProductDetailModel {
     var url = "https://yx.3.cn/service/info.action";
     var dio = Dio();
     var response =  dio.get(url,queryParameters: {"ids":skuid}).then((value) {
-
-      print("商品详情结果:$value");
 
       var jsonMap = json.decode(value.data);
       return ProductDetailModel.formJson(jsonMap,skuid);

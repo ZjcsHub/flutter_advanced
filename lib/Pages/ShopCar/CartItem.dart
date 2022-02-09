@@ -74,6 +74,8 @@ class _CartItemState extends State<CartItem> {
                         child: CartNumber(widget._productModel.count,(number){
                           print("点击数量：$number");
                           widget._productModel.count = number;
+                          eventBus.fire(ShopCartItemEvent("更改购物车全选"));
+
                         }),
                       )
                     ],

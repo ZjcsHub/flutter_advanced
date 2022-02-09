@@ -8,6 +8,7 @@ import '../../model/ProductDetailModel.dart';
 import '../../EventBus/ShopCartEvent.dart';
 import 'package:provider/provider.dart';
 import '../../Provider/ShopCarCounter.dart';
+import 'package:toast/toast.dart';
 class ProductContentsFirst extends StatefulWidget {
   late ProductModel _productModel;
   ProductDetailModel? _productDetailModel;
@@ -36,6 +37,7 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
     });
     // 监听广播
     eventBus.on<ShopCartEvent>().listen((event) {
+      print("接收到通知");
       _attrShowBottomSheet();
 
 
@@ -52,6 +54,7 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
           onTap: (){
 
           }, // 解决 showModalBottomSheet 点击消失的问题
+          //behavior: HitTestBehavior.opaque, // 解决手势事件触发不了的问题
           child: Container(
             height: size.height / 2,
             child: Stack(
@@ -183,6 +186,8 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
 
                                 // 消失
                                 Navigator.pop(contex);
+
+                                Toast.show("加入购物车成功", context);
                               },
                             )
                         ),

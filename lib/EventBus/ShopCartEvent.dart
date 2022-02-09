@@ -14,3 +14,8 @@ class ShopCartItemEvent {
   String str;
   ShopCartItemEvent(this.str);
 }
+
+class ShopCartdisplayEvent{
+  String str;
+  ShopCartdisplayEvent(this.str);
+}

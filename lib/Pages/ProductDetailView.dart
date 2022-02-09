@@ -84,6 +84,7 @@ class _ProductDetailViewState extends State<ProductDetailView> {
           body: Stack(
             children: [
               TabBarView(
+                physics: NeverScrollableScrollPhysics(), // 禁止tabbar左右滑动
                 children: [
                   ProductContentsFirst(widget.productModel),
                   ProductContentsSecond(widget.productModel),
@@ -110,16 +111,26 @@ class _ProductDetailViewState extends State<ProductDetailView> {
 
                         children: [
 
-                          Container(
-                           margin: EdgeInsets.only(top: 10),
-                            alignment: Alignment.center,
-                            width: 100,
-                            child: Column(
-                              children: [
-                                Icon(Icons.shopping_cart),
-                                Text("购物车")
-                              ],
+                          InkWell(
+                            child: Container(
+                              margin: EdgeInsets.only(top: 10),
+                              alignment: Alignment.center,
+                              width: 100,
+                              child: Column(
+                                children: [
+                                  Icon(Icons.shopping_cart),
+                                  Text("购物车")
+                                ],
+                              ),
                             ),
+                            onTap: (){
+                              print("跳转购物车");
+
+                              Navigator.of(context).popUntil((route) => route.isFirst);
+                              // 发通知
+                              eventBus.fire(ShopCartdisplayEvent("跳转购物车"));
+
+                            },
                           ),
                           Expanded(
                             flex: 1,

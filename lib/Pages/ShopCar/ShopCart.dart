@@ -17,7 +17,7 @@ class ShopCart extends StatefulWidget {
 
 class _ShopCartState extends State<ShopCart> {
 
-
+  bool isEdit = false;
   bool allChecked = true;
   ShopCarCounter? _cartProvider;
   @override
@@ -38,6 +38,8 @@ class _ShopCartState extends State<ShopCart> {
           allChecked = allState == false;
         });
       }
+
+      _cartProvider?.computeAllPrice();
 
 
 
@@ -71,7 +73,17 @@ class _ShopCartState extends State<ShopCart> {
     return Scaffold(
         appBar: AppBar(
           title: Text("购物车"),
+          actions: [
+            IconButton(onPressed: (){
+
+              setState(() {
+                this.isEdit = !this.isEdit;
+              });
+
+            }, icon: Icon(Icons.edit))
+          ],
         ),
+
         body: Stack(
           children: [
             ListView(
@@ -107,12 +119,18 @@ class _ShopCartState extends State<ShopCart> {
                                 activeColor: Colors.pink,
                               ),
                             ),
-                            Text("全选")
+                            Text("全选"),
+                            SizedBox(width: 20,),
+                            Row(
+                              children: this.isEdit == false ? [
+                                Text("合计："),
+                                Text("${_cartProvider?.allPrice}")
+                              ]:[],
+                            )
                           ],
                         ),
                       ),
-                      Align(
-
+                      this.isEdit == false ? Align(
                         alignment: Alignment.centerRight,
                         child: ElevatedButton(
                           style: ButtonStyle(
@@ -128,6 +146,25 @@ class _ShopCartState extends State<ShopCart> {
                           child: Text("结算"),
                           onPressed: () {
                             print("结算");
+                          },
+                        ),
+                      ):Align(
+                        alignment: Alignment.centerRight,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.resolveWith((states) {
+                              //设置按下时的背景颜色
+                              if (states.contains(MaterialState.pressed)) {
+                                return Colors.blue[200];
+                              }
+                              //默认不使用背景颜色
+                              return Colors.red;
+                            }),
+                          ),
+                          child: Text("删除"),
+                          onPressed: () {
+                            print("删除");
+                            this._cartProvider?.deleteAllData();
                           },
                         ),
                       )
