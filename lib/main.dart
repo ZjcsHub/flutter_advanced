@@ -4,6 +4,7 @@ import 'routers/routers.dart';
 import 'Provider/Counter.dart';
 import 'Provider/ShopCarCounter.dart';
 import 'package:provider/provider.dart';
+import 'Provider/UserLoginNotifier.dart';
 main() => runApp(MyApp("京东商城"));
 
 
@@ -26,6 +27,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         ChangeNotifierProvider(create: (_) => Counter()),
         ChangeNotifierProvider(create: (_) => ShopCarCounter()),
+        ChangeNotifierProvider(create: (_) => UserLoginNotifier())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

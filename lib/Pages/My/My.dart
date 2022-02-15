@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced/Servers/Storage.dart';
+import 'package:flutter_advanced/Widget/MyButton.dart';
 import 'package:provider/provider.dart';
 import '../../Provider/Counter.dart';
+import '../../Provider/UserLoginNotifier.dart';
+import 'package:provider/provider.dart';
 class MyPage extends StatefulWidget {
 @override
   State<StatefulWidget> createState() {
@@ -8,15 +12,35 @@ class MyPage extends StatefulWidget {
   }
 }
 
-class _MyState extends State {
+class _MyState extends State<MyPage> {
+
+  UserLoginNotifier? _userLoginProvider;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void activate() {
+    // TODO: implement activate
+    super.activate();
+    print("我的视图活跃");
+  }
 
   @override
   Widget build(BuildContext context) {
     var counterProvider = Provider.of<Counter>(context);
+    if (this._userLoginProvider == null) {
+      this._userLoginProvider = Provider.of<UserLoginNotifier>(context);
+    }
+
+    print("my视图build");
 
     return Scaffold(
       appBar: AppBar(
         title: Text("我的"),
+
       ),
       body: ListView(
         children: [
@@ -40,7 +64,8 @@ class _MyState extends State {
                     )
                   ),
                 ),
-                Expanded(child: Container(
+                Expanded(
+                  child: _userLoginProvider!.isLogin ? Container(
                   margin: EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -59,7 +84,27 @@ class _MyState extends State {
                     ],
 
                   ),
-                ),
+                ):Container(
+                    height: 40,
+                    alignment: Alignment.centerLeft,
+                    //width: 60,
+                    child: InkWell(
+                      child: Text(
+                        "登录",
+                        textAlign: TextAlign.start,
+                        style: TextStyle(
+                            fontSize: 17,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      onTap: ()  {
+
+                        Navigator.pushNamed(context, "login");
+
+
+                      },
+                    ),
+
+                  ),
                 flex: 1,)
               ],
             ),
@@ -103,7 +148,15 @@ class _MyState extends State {
           ListTile(
             leading: Icon(Icons.search,color:Colors.lightBlueAccent),
             title: Text("订单列表"),
-          )
+          ),
+          _userLoginProvider!.isLogin ?  MyButton(height: 40,text: "退出登录",decoration: BoxDecoration(
+            color: Colors.red
+          ),onClick: (){
+            _userLoginProvider?.logOut();
+          },):Text("")
+
+
+
         ],
       ),
     );
