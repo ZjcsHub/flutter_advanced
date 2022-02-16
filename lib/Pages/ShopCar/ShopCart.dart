@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced/Pages/ShopCar/CartNumber.dart';
+import 'package:flutter_advanced/Provider/UserLoginNotifier.dart';
 import 'package:flutter_advanced/Servers/ScreenAdaper.dart';
 import 'package:flutter_advanced/Widget/MyButton.dart';
 import 'package:flutter_advanced/model/ProductDetailModel.dart';
@@ -20,6 +21,7 @@ class _ShopCartState extends State<ShopCart> {
   bool isEdit = false;
   bool allChecked = true;
   ShopCarCounter? _cartProvider;
+  UserLoginNotifier? _userLoginProvider;
   @override
   void initState() {
     super.initState();
@@ -47,6 +49,16 @@ class _ShopCartState extends State<ShopCart> {
     });
   }
 
+  doCheckOut() {
+    // 去结算，判断有没有登录
+    if (_userLoginProvider?.isLogin == false) {
+      print("没登录");
+      return;
+    }
+
+    Navigator.pushNamed(context, "checkOut");
+
+  }
   // List<CartItem> _getcartShowItem() {
   //
   //   this._cartProvider._carLists
@@ -60,6 +72,9 @@ class _ShopCartState extends State<ShopCart> {
       this._cartProvider = Provider.of<ShopCarCounter>(context);
     }
 
+    if (this._userLoginProvider == null) {
+      this._userLoginProvider = Provider.of<UserLoginNotifier>(context);
+    }
 
     print("_cartProvider:${this._cartProvider}");
     List<Widget> listViewLists = [];
@@ -144,9 +159,7 @@ class _ShopCartState extends State<ShopCart> {
                             }),
                           ),
                           child: Text("结算"),
-                          onPressed: () {
-                            print("结算");
-                          },
+                          onPressed: doCheckOut,
                         ),
                       ):Align(
                         alignment: Alignment.centerRight,
