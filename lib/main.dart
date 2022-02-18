@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'Provider/UserLoginNotifier.dart';
 main() => runApp(MyApp("京东商城"));
 
-
 class MyApp extends StatefulWidget {
   String title;
   MyApp(this.title);

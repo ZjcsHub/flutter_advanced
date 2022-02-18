@@ -10,9 +10,11 @@ class TextComment extends StatelessWidget {
 
   double height = 40;
 
-  TextComment({this.controller,this.hintText});
+  int maxLine = 1;
 
   Function(String? text)? changeTextMethod;
+
+  TextComment({this.height = 40,this.controller = null,this.hintText = null,this.password = false,this.changeTextMethod = null,this.maxLine = 1});
 
   TextComment.setHeight(double height,TextEditingController? controller,String? hintText,bool password,Function(String? text)? changeTextMethod) {
     this.height = height;
@@ -28,6 +30,7 @@ class TextComment extends StatelessWidget {
     return Container(
     height: this.height,
     child: TextField(
+      maxLines: this.maxLine,
       obscureText: this.password,
       controller: controller,
       textAlignVertical: TextAlignVertical.bottom,

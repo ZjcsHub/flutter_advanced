@@ -3,6 +3,7 @@ import 'package:flutter_advanced/Provider/ShopCarCounter.dart';
 import 'package:flutter_advanced/model/ProductDetailModel.dart';
 import 'package:provider/provider.dart';
 import '../../Widget/MyButton.dart';
+import '../../model/AddressModel.dart';
 class CheckOut extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -16,6 +17,7 @@ class _CheckOutState extends State<CheckOut> {
   ShopCarCounter? _cartProvider;
 
 
+  AddressModel? _defalutAddress;
 
   Widget _checkOutProductItem(ProductDetailModel detailModel) {
     return Container(
@@ -65,8 +67,9 @@ class _CheckOutState extends State<CheckOut> {
 
   _getShopCartItems() {
 
+    var cartLists = this._cartProvider?.carlists.where((element) => (element as ProductDetailModel).checked == true);
     return Column(
-      children: this._cartProvider?.carlists.map((e) => _checkOutProductItem((e as ProductDetailModel))).toList() as List<Widget>
+      children: cartLists?.map((e) => _checkOutProductItem((e as ProductDetailModel))).toList() as List<Widget>
     );
 
   }
@@ -77,6 +80,12 @@ class _CheckOutState extends State<CheckOut> {
       this._cartProvider = Provider.of<ShopCarCounter>(context);
     }
 
+    // 获取最新一条地址
+     AddressModel.getDefalutAddress().then((value){
+       setState(() {
+         _defalutAddress = value;
+       });
+     });
 
     return Scaffold(
       appBar: AppBar(
@@ -92,11 +101,19 @@ class _CheckOutState extends State<CheckOut> {
                     ListTile(
                       leading: Icon(Icons.location_on),
                       title:Center(
-                        child: Text("请添加收货地址"),
+                        child: _defalutAddress != null ? Column(
+                          children: [
+                            Text("${_defalutAddress?.name} ${_defalutAddress?.phoneNumber}"),
+                            Text("${_defalutAddress?.address}")
+                          ],
+                        ): Text("请添加收货地址"),
                       ),
                       trailing: Icon(
                         Icons.navigate_next,
                       ),
+                      onTap: (){
+                        Navigator.pushNamed(context, "addressLists");
+                      },
                     )
                   ],
                 ),

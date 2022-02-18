@@ -11,6 +11,9 @@ import '../Pages/My/RegisterFirst.dart';
 import '../Pages/My/RegisterSecond.dart';
 import '../Pages/My/RegisterThird.dart';
 import '../Pages/ShopCar/CheckOut.dart';
+import '../Pages/Address/AddressLists.dart';
+import '../Pages/Address/AddAddress.dart';
+import '../Pages/Address/EditAddress.dart';
 final routers = {
   "/":(context,{arguments}) => Tabs(),
   "products":(context,{arguments}) => ProductsLists(arguments),
@@ -22,7 +25,10 @@ final routers = {
   "registerfirst":(context,{arguments}) => RegisterFirst(),
   "registersecond":(context,{arguments}) => RegisterSecond(),
   "registerthird":(context,{arguments}) => RegisterThird(),
-  "checkOut":(context,{arguments}) => CheckOut()
+  "checkOut":(context,{arguments}) => CheckOut(),
+  "addressLists":(context,{arguments}) => AddressLists(),
+  "addAddress":(context,{arguments}) => AddAddress(),
+  "editAddress":(context,{arguments}) => EditAddress()
 };
 
 var onGenerateRoute = (RouteSettings settings) {
