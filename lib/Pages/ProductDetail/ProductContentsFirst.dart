@@ -1,14 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_advanced/Pages/ShopCar/CartNumber.dart';
 import 'package:flutter_advanced/Provider/ShopCarCounter.dart';
 import 'package:flutter_advanced/Widget/MyButton.dart';
 import 'package:flutter_advanced/model/productModel.dart';
-import 'package:flutter/material.dart';
-import '../../model/ProductDetailModel.dart';
-import '../../EventBus/ShopCartEvent.dart';
 import 'package:provider/provider.dart';
-import '../../Provider/ShopCarCounter.dart';
 import 'package:toast/toast.dart';
+
+import '../../EventBus/ShopCartEvent.dart';
+import '../../model/ProductDetailModel.dart';
+
 class ProductContentsFirst extends StatefulWidget {
   late ProductModel _productModel;
   ProductDetailModel? _productDetailModel;
@@ -22,7 +23,6 @@ class ProductContentsFirst extends StatefulWidget {
 }
 
 class _ProductContentsFirstState extends State<ProductContentsFirst> {
-
   @override
   void initState() {
     super.initState();
@@ -39,192 +39,180 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
     eventBus.on<ShopCartEvent>().listen((event) {
       print("接收到通知");
       _attrShowBottomSheet();
-
-
     });
   }
-
 
   void _attrShowBottomSheet() {
     var size = MediaQuery.of(context).size;
-    showModalBottomSheet(context: context, builder: (contex){
-      var _cartProvider = Provider.of<ShopCarCounter>(contex);
-      return StatefulBuilder(builder: (BuildContext buildcontext,setState){
-        return GestureDetector(
-          onTap: (){
-
-          }, // 解决 showModalBottomSheet 点击消失的问题
-          //behavior: HitTestBehavior.opaque, // 解决手势事件触发不了的问题
-          child: Container(
-            height: size.height / 2,
-            child: Stack(
-              children: [
-                ListView(
+    showModalBottomSheet(
+        context: context,
+        builder: (contex) {
+          var _cartProvider = Provider.of<ShopCarCounter>(contex);
+          return StatefulBuilder(
+              builder: (BuildContext buildcontext, setState) {
+            return GestureDetector(
+              onTap: () {}, // 解决 showModalBottomSheet 点击消失的问题
+              //behavior: HitTestBehavior.opaque, // 解决手势事件触发不了的问题
+              child: Container(
+                height: size.height / 2,
+                child: Stack(
                   children: [
-
-                    Row(
-                      crossAxisAlignment:CrossAxisAlignment.start,
+                    ListView(
                       children: [
-                        Container(
-                          width: 50,
-                          margin: EdgeInsets.all(10),
-                          child: Text("颜色:",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 50,
+                              margin: EdgeInsets.all(10),
+                              child: Text(
+                                "颜色:",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                              ),
                             ),
-                          ),
+                            Container(
+                              width: size.width - 70,
+                              child: Wrap(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("黑色")),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("白色")),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("粉色色")),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("白灰色")),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("黑色")),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("白色")),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("粉色色")),
+                                  ),
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(label: Text("白灰色")),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        Container(
-                          width: size.width - 70,
-                          child: Wrap(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("黑色")),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              width: 50,
+                              margin: EdgeInsets.all(10),
+                              child: Text(
+                                "大小:",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("白色")),
+                            ),
+                            Container(
+                              width: size.width - 70,
+                              child: Wrap(
+                                children: [
+                                  Container(
+                                    margin: EdgeInsets.only(left: 5, right: 5),
+                                    child: Chip(
+                                        label: Text(
+                                            widget._productDetailModel?.size ??
+                                                "")),
+                                  ),
+                                ],
                               ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("粉色色")),
+                            )
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 50,
+                              margin: EdgeInsets.all(10),
+                              child: Text(
+                                "数量:",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
                               ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("白灰色")),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("黑色")),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("白色")),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("粉色色")),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text("白灰色")),
-                              ),                          ],
-                          ),
+                            ),
+                            CartNumber(widget._productDetailModel?.count ?? 1,
+                                (number) {
+                              widget._productDetailModel?.count = number;
+                              print("点击数量：$number");
+                            })
+                          ],
                         )
                       ],
                     ),
-                    Row(
-                      crossAxisAlignment:CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          width: 50,
-                          margin: EdgeInsets.all(10),
-                          child: Text("大小:",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: size.width - 70,
-                          child: Wrap(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(left: 5,right: 5),
-                                child: Chip(label: Text(widget._productDetailModel?.size ?? "")),
-                              ),
+                    Positioned(
+                      child: Container(
+                        child: Row(
+                          children: [
+                            Expanded(
+                                flex: 1,
+                                child: MyButton(
+                                  decoration: BoxDecoration(
+                                      color: Colors.orange,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  height: 40,
+                                  margin: EdgeInsets.only(left: 10, right: 5),
+                                  text: "加入购物车",
+                                  onClick: () {
+                                    print("加入购物车");
 
+                                    _cartProvider
+                                        .addData(widget._productDetailModel);
 
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment:CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 50,
-                          margin: EdgeInsets.all(10),
-                          child: Text("数量:",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 20
-                            ),
-                          ),
+                                    // 消失
+                                    Navigator.pop(contex);
+
+                                    Toast.show("加入购物车成功");
+                                  },
+                                )),
+                            Expanded(
+                                flex: 1,
+                                child: MyButton(
+                                  decoration: BoxDecoration(
+                                      color: Colors.red,
+                                      borderRadius: BorderRadius.circular(10)),
+                                  height: 40,
+                                  margin: EdgeInsets.only(left: 5, right: 10),
+                                  text: "立即购买",
+                                  onClick: () {
+                                    print("立即购买");
+                                  },
+                                ))
+                          ],
                         ),
-                        CartNumber(widget._productDetailModel?.count ?? 1,(number){
-                          widget._productDetailModel?.count = number;
-                          print("点击数量：$number");
-                        })
-                      ],
+                      ),
+                      bottom: 0,
+                      width: size.width,
+                      height: 90,
                     )
-
                   ],
                 ),
-                Positioned(
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Expanded(
-                            flex: 1,
-                            child: MyButton(
-                              decoration: BoxDecoration(
-                                  color: Colors.orange,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              height: 40,
-                              margin: EdgeInsets.only(left: 10,right: 5),
-                              text: "加入购物车",
-                              onClick: (){
-                                print("加入购物车");
-
-                                _cartProvider.addData(widget._productDetailModel);
-
-                                // 消失
-                                Navigator.pop(contex);
-
-                                Toast.show("加入购物车成功", context);
-                              },
-                            )
-                        ),
-                        Expanded(
-                            flex: 1,
-
-                            child:  MyButton(
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              height: 40,
-                              margin: EdgeInsets.only(left: 5,right: 10),
-                              text: "立即购买",
-                              onClick: (){
-                                print("立即购买");
-                              },
-                            )
-                        )
-                      ],
-                    ),
-
-                  ),
-                  bottom: 0,
-                  width: size.width,
-                  height: 90,
-                )
-              ],
-            ),
-          ),
-        );
-      });
-
-    });
+              ),
+            );
+          });
+        });
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +247,7 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
                         style: TextStyle(
                             color: Colors.red,
                             fontSize: 17,
-                        decoration:TextDecoration.lineThrough ),
+                            decoration: TextDecoration.lineThrough),
                       )
                     ],
                   ),
@@ -280,7 +268,7 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
             ),
           ),
           InkWell(
-            onTap: (){
+            onTap: () {
               _attrShowBottomSheet();
             },
             child: Container(
@@ -297,10 +285,7 @@ class _ProductContentsFirstState extends State<ProductContentsFirst> {
           Container(
             height: 40,
             child: Row(
-              children: [
-                Text("运费："),
-                Text("免运费")
-              ],
+              children: [Text("运费："), Text("免运费")],
             ),
           )
         ],
